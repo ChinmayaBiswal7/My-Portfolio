@@ -76,7 +76,7 @@ function App() {
       <div className="app-container" style={{ position: 'relative', zIndex: 10 }}>
         <NavBar />
 
-        <main className="content">
+        <main>
           <Hero />
           <About />
           <Skills />

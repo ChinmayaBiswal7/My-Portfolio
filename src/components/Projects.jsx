@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Github, Navigation, Gamepad2, Target, Cpu } from 'lucide-react';
+import { Github, Navigation, Gamepad2, Target, Cpu, ExternalLink } from 'lucide-react';
 
 const Projects = () => {
     const data = [
@@ -9,21 +9,27 @@ const Projects = () => {
             desc: 'Live tracking of college buses featuring real-time ETA, dedicated admin dashboard, and robust driver panel.',
             tech: ['React', 'Node.js', 'Maps API'],
             imgUrl: '/onebus.png',
-            icon: <Navigation size={22} color="#e94235" />
+            icon: <Navigation size={22} color="#e94235" />,
+            githubUrl: 'https://github.com/ChinmayaBiswal7/bus-tracker',
+            liveUrl: 'https://bus-tracker-kmd5.onrender.com/'
         },
         {
             title: 'Gammers Hub',
             desc: 'A dedicated gaming platform featuring classic board games and engaging Player-vs-Player matchmaking capabilities.',
             tech: ['JavaScript', 'HTML/CSS', 'Socket.io'],
             imgUrl: '/gammers.png',
-            icon: <Gamepad2 size={22} color="#fabb05" />
+            icon: <Gamepad2 size={22} color="#fabb05" />,
+            githubUrl: 'https://github.com/ChinmayaBiswal7/GammersGames',
+            liveUrl: 'https://gammersgames.netlify.app/games.html'
         },
         {
             title: 'Student Buddy App',
             desc: 'An all-in-one productivity suite for students integrating a focus timer, task/work tracker, and fitness goals.',
             tech: ['React Native', 'MongoDB', 'PostgreSQL'],
             imgUrl: '/buddyapp.png',
-            icon: <Target size={22} color="#34a853" />
+            icon: <Target size={22} color="#34a853" />,
+            githubUrl: 'https://github.com/ChinmayaBiswal7/Buddy-App',
+            liveUrl: 'https://buddy-app-8ad7.onrender.com'
         },
     ];
 
@@ -44,9 +50,17 @@ const Projects = () => {
     const cy = 140;
 
     return (
-        <section id="work" style={{ background: 'var(--card-bg)', borderRadius: '40px', padding: '8rem 5%', margin: '0 -5%' }}>
-            <style>
-                {`
+        <section id="work" style={{
+            background: 'var(--card-bg)',
+            borderRadius: '40px',
+            padding: '8rem 2rem',
+            margin: '2rem 5%',
+            border: '1px solid var(--border-color)',
+            boxShadow: '0 20px 50px rgba(0,0,0,0.05)'
+        }}>
+            <div style={{ maxWidth: '1150px', margin: '0 auto' }}>
+                <style>
+                    {`
           @keyframes orbitSpin {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
@@ -57,8 +71,8 @@ const Projects = () => {
           }
           .orbit-container {
             position: relative;
-            width: 280px;
-            height: 280px;
+            width: clamp(240px, 80vw, 280px);
+            height: clamp(240px, 80vw, 280px);
             border: 2px dashed rgba(26,115,232,0.2);
             border-radius: 50%;
             display: flex;
@@ -66,6 +80,7 @@ const Projects = () => {
             align-items: center;
             flex-shrink: 0;
             margin: 0 auto;
+            transform: scale(var(--orbit-scale, 1));
           }
           .orbit-ring {
             position: absolute;
@@ -138,6 +153,7 @@ const Projects = () => {
             display: flex;
             gap: 5rem;
             align-items: center;
+            justify-content: center;
             flex-wrap: wrap;
             margin-top: 4rem;
           }
@@ -145,101 +161,120 @@ const Projects = () => {
           @media (max-width: 1000px) {
             .work-layout {
                flex-direction: column;
-               gap: 4rem;
+               gap: 3rem;
                align-items: center;
             }
           }
+          @media (max-width: 768px) {
+            #work {
+              margin: 1rem 3% !important;
+              padding: 4rem 1.5rem !important;
+              border-radius: 24px !important;
+            }
+          }
+          @media (max-width: 480px) {
+            .orbit-container {
+              --orbit-scale: 0.8;
+            }
+            .premium-card {
+              padding: 1.5rem !important;
+            }
+          }
         `}
-            </style>
+                </style>
 
-            <div style={{ textAlign: 'center' }}>
-                <motion.p
-                    initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
-                    style={{ color: 'var(--accent-1)', fontWeight: 600, letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '1rem', fontSize: '0.85rem' }}
-                >
-                    Project Architecture
-                </motion.p>
-                <motion.h2
-                    className="hero-title"
-                    initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-                    style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', marginBottom: '1rem' }}
-                >
-                    The Ecosystem
-                </motion.h2>
-            </div>
+                <div style={{ textAlign: 'center' }}>
+                    <motion.p
+                        initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
+                        style={{ color: 'var(--accent-1)', fontWeight: 600, letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '1rem', fontSize: '0.85rem' }}
+                    >
+                        Project Architecture
+                    </motion.p>
+                    <motion.h2
+                        className="hero-title"
+                        initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+                        style={{ fontSize: 'clamp(2rem, 8vw, 4rem)', marginBottom: '1rem' }}
+                    >
+                        The Ecosystem
+                    </motion.h2>
+                </div>
 
-            <div className="work-layout">
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.8, type: "spring" }}
-                    style={{ flex: 1, display: 'flex', justifyContent: 'center', padding: '2rem 0', minWidth: '320px' }}
-                >
-                    <div className="orbit-container">
-                        <div className="orbit-core">
-                            <Cpu size={36} color="var(--card-bg)" />
-                        </div>
-                        <div className="orbit-ring">
-                            {data.map((proj, idx) => {
-                                const angle = angles[idx];
-                                const left = cx + radius * Math.cos(angle * Math.PI / 180);
-                                const top = cy + radius * Math.sin(angle * Math.PI / 180);
-                                return (
-                                    <div
-                                        key={idx}
-                                        className={`orbit-planet-wrapper ${active === idx ? 'active' : ''}`}
-                                        style={{ left: left + 'px', top: top + 'px' }}
-                                    >
-                                        <div className="orbit-planet">
-                                            {proj.icon}
-                                        </div>
-                                        <div className="orbit-planet-title">{proj.title}</div>
-                                    </div>
-                                )
-                            })}
-                        </div>
-                    </div>
-                </motion.div>
-
-                <div style={{ flex: 1, minWidth: '300px', width: '100%', maxWidth: '600px' }}>
-                    <AnimatePresence mode="wait">
-                        <motion.div
-                            key={active}
-                            initial={{ opacity: 0, filter: 'blur(10px)', x: 30 }}
-                            animate={{ opacity: 1, filter: 'blur(0px)', x: 0 }}
-                            exit={{ opacity: 0, filter: 'blur(10px)', x: -30 }}
-                            transition={{ duration: 0.4, ease: "easeInOut" }}
-                            className="premium-card"
-                            style={{ overflow: 'hidden', padding: 0 }}
-                        >
-                            <div
-                                style={{
-                                    height: '260px',
-                                    background: `url(${data[active].imgUrl}) no-repeat center center/cover`,
-                                    borderBottom: '1px solid rgba(0,0,0,0.05)'
-                                }}
-                            />
-                            <div style={{ padding: '2.5rem' }}>
-                                <h3 style={{ fontSize: '1.8rem', color: 'var(--text-color)', marginBottom: '0.8rem', fontFamily: 'Outfit' }}>{data[active].title}</h3>
-                                <p style={{ color: 'var(--text-muted)', fontSize: '1.05rem', lineHeight: 1.6, marginBottom: '2rem' }}>{data[active].desc}</p>
-
-                                <div style={{ display: 'flex', gap: '0.8rem', flexWrap: 'wrap', marginBottom: '2.5rem' }}>
-                                    {data[active].tech.map(t => (
-                                        <span key={t} style={{ background: 'var(--bg-color)', border: '1px solid var(--border-color)', padding: '6px 14px', borderRadius: '50px', fontSize: '0.85rem', fontWeight: 600, color: 'var(--accent-1)' }}>
-                                            {t}
-                                        </span>
-                                    ))}
-                                </div>
-
-                                <div style={{ display: 'flex', gap: '1rem' }}>
-                                    <a href="#" className="btn btn-primary" style={{ padding: '0.8rem 1.5rem', fontSize: '0.9rem' }}>
-                                        Source Code <Github size={16} />
-                                    </a>
-                                </div>
+                <div className="work-layout">
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8, type: "spring" }}
+                        style={{ flex: 1, display: 'flex', justifyContent: 'center', padding: '2rem 0', minWidth: '320px' }}
+                    >
+                        <div className="orbit-container">
+                            <div className="orbit-core">
+                                <Cpu size={36} color="var(--card-bg)" />
                             </div>
-                        </motion.div>
-                    </AnimatePresence>
+                            <div className="orbit-ring">
+                                {data.map((proj, idx) => {
+                                    const angle = angles[idx];
+                                    const left = cx + radius * Math.cos(angle * Math.PI / 180);
+                                    const top = cy + radius * Math.sin(angle * Math.PI / 180);
+                                    return (
+                                        <div
+                                            key={idx}
+                                            className={`orbit-planet-wrapper ${active === idx ? 'active' : ''}`}
+                                            style={{ left: left + 'px', top: top + 'px' }}
+                                        >
+                                            <div className="orbit-planet">
+                                                {proj.icon}
+                                            </div>
+                                            <div className="orbit-planet-title">{proj.title}</div>
+                                        </div>
+                                    )
+                                })}
+                            </div>
+                        </div>
+                    </motion.div>
+
+                    <div style={{ flex: 1, minWidth: '300px', width: '100%', maxWidth: '600px' }}>
+                        <AnimatePresence mode="wait">
+                            <motion.div
+                                key={active}
+                                initial={{ opacity: 0, filter: 'blur(10px)', x: 30 }}
+                                animate={{ opacity: 1, filter: 'blur(0px)', x: 0 }}
+                                exit={{ opacity: 0, filter: 'blur(10px)', x: -30 }}
+                                transition={{ duration: 0.4, ease: "easeInOut" }}
+                                className="premium-card"
+                                style={{ overflow: 'hidden', padding: 0 }}
+                            >
+                                <div
+                                    style={{
+                                        height: '260px',
+                                        background: `url(${data[active].imgUrl}) no-repeat center center/cover`,
+                                        borderBottom: '1px solid rgba(0,0,0,0.05)'
+                                    }}
+                                />
+                                <div style={{ padding: '2.5rem' }}>
+                                    <h3 style={{ fontSize: '1.8rem', color: 'var(--text-color)', marginBottom: '0.8rem', fontFamily: 'Outfit' }}>{data[active].title}</h3>
+                                    <p style={{ color: 'var(--text-muted)', fontSize: '1.05rem', lineHeight: 1.6, marginBottom: '2rem' }}>{data[active].desc}</p>
+
+                                    <div style={{ display: 'flex', gap: '0.8rem', flexWrap: 'wrap', marginBottom: '2.5rem' }}>
+                                        {data[active].tech.map(t => (
+                                            <span key={t} style={{ background: 'var(--bg-color)', border: '1px solid var(--border-color)', padding: '6px 14px', borderRadius: '50px', fontSize: '0.85rem', fontWeight: 600, color: 'var(--accent-1)' }}>
+                                                {t}
+                                            </span>
+                                        ))}
+                                    </div>
+
+                                    <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+                                        <a href={data[active].liveUrl} target="_blank" rel="noreferrer" className="btn btn-primary" style={{ padding: '0.8rem 1.5rem', fontSize: '0.9rem' }}>
+                                            Live Demo <ExternalLink size={16} />
+                                        </a>
+                                        <a href={data[active].githubUrl} target="_blank" rel="noreferrer" className="btn" style={{ padding: '0.8rem 1.5rem', fontSize: '0.9rem', background: 'var(--card-alt)', color: 'var(--text-color)', border: '1px solid var(--border-color)' }}>
+                                            Source Code <Github size={16} />
+                                        </a>
+                                    </div>
+                                </div>
+                            </motion.div>
+                        </AnimatePresence>
+                    </div>
                 </div>
             </div>
         </section>

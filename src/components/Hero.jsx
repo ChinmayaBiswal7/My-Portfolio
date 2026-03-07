@@ -89,6 +89,26 @@ const Hero = () => {
                     z-index: 1;
                     transform: translate(-50%, -50%);
                 }
+                .hero-btn-container {
+                    display: flex;
+                    gap: 1.5rem;
+                    justify-content: center;
+                }
+                @media (max-width: 640px) {
+                    .hero-btn-container {
+                        flex-direction: column;
+                        width: 100%;
+                        gap: 1rem;
+                        padding: 0 10%;
+                    }
+                    .hero-btn-container a {
+                        width: 100% !important;
+                        justify-content: center;
+                    }
+                    .hero-content {
+                        padding: 0 1rem;
+                    }
+                }
                 `}
             </style>
 
@@ -199,7 +219,7 @@ const Hero = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.8, type: "spring", stiffness: 120 }}
-                    style={{ display: 'flex', gap: '1.5rem', justifyContent: 'center' }}
+                    className="hero-btn-container"
                 >
                     <motion.a
                         whileHover={{ scale: 1.05 }}

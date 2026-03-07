@@ -214,6 +214,12 @@ section {
   padding: 8rem 0;
 }
 
+@media (max-width: 768px) {
+  section {
+    padding: 4rem 0;
+  }
+}
+
 /* Nav */
 nav {
   position: fixed;
@@ -256,6 +262,45 @@ nav {
 
 .nav-link:hover {
   color: var(--accent-1);
+}
+
+.mobile-menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--text-color);
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  nav {
+    padding: 1rem 5%;
+  }
+
+  .nav-links:not(.active) {
+    display: none;
+  }
+
+  .mobile-menu-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .nav-links.active {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 280px;
+    height: 100vh;
+    background: var(--bg-color);
+    flex-direction: column;
+    padding: 6rem 2rem;
+    gap: 2rem;
+    align-items: flex-start;
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+  }
 }
 
 /* Bento Grid */
