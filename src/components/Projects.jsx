@@ -1,9 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Github, Navigation, Gamepad2, Target, Cpu, ExternalLink, Cctv } from 'lucide-react';
+import { Github, Navigation, Gamepad2, Target, Cpu, ExternalLink, Cctv, Bot } from 'lucide-react';
 
 const Projects = () => {
     const data = [
+        {
+            title: 'ARIA — Autonomous Multimodal AI Assistant',
+            shortTitle: 'ARIA',
+            desc: 'An offline, multimodal desktop assistant capable of real-time computer vision, voice interaction, and autonomous OS-level workflow automation without cloud APIs.',
+            tech: ['Python', 'PyTorch', 'OpenCV', 'YOLOv8', 'Ollama'],
+            imgUrl: '/aria-logo.png',
+            icon: <Bot size={22} color="#a142f4" />,
+            githubUrl: 'https://github.com/ChinmayaBiswal7/ARIA',
+            liveUrl: null
+        },
         {
             title: 'VeloCITI — Distributed AI Traffic Surveillance & ANPR Engine',
             shortTitle: 'VeloCITI',
@@ -280,12 +290,20 @@ const Projects = () => {
                                     </div>
 
                                     <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-                                        <a href={data[active].liveUrl} target="_blank" rel="noreferrer" className="btn btn-primary" style={{ padding: '0.8rem 1.5rem', fontSize: '0.9rem' }}>
-                                            Live Demo <ExternalLink size={16} />
-                                        </a>
-                                        <a href={data[active].githubUrl} target="_blank" rel="noreferrer" className="btn" style={{ padding: '0.8rem 1.5rem', fontSize: '0.9rem', background: 'var(--card-alt)', color: 'var(--text-color)', border: '1px solid var(--border-color)' }}>
-                                            Source Code <Github size={16} />
-                                        </a>
+                                        {data[active].liveUrl ? (
+                                            <a href={data[active].liveUrl} target="_blank" rel="noreferrer" className="btn btn-primary" style={{ padding: '0.8rem 1.5rem', fontSize: '0.9rem' }}>
+                                                Live Demo <ExternalLink size={16} />
+                                            </a>
+                                        ) : (
+                                            <a href={`${data[active].githubUrl}#readme`} target="_blank" rel="noreferrer" className="btn btn-primary" style={{ padding: '0.8rem 1.5rem', fontSize: '0.9rem' }}>
+                                                Architecture & Docs <ExternalLink size={16} />
+                                            </a>
+                                        )}
+                                        {data[active].githubUrl && (
+                                            <a href={data[active].githubUrl} target="_blank" rel="noreferrer" className="btn" style={{ padding: '0.8rem 1.5rem', fontSize: '0.9rem', background: 'var(--card-alt)', color: 'var(--text-color)', border: '1px solid var(--border-color)' }}>
+                                                Source Code <Github size={16} />
+                                            </a>
+                                        )}
                                     </div>
                                 </div>
                             </motion.div>
