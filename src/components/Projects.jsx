@@ -1,11 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Github, Navigation, Gamepad2, Target, Cpu, ExternalLink } from 'lucide-react';
+import { Github, Navigation, Gamepad2, Target, Cpu, ExternalLink, Cctv } from 'lucide-react';
 
 const Projects = () => {
     const data = [
         {
+            title: 'VeloCITI — Distributed AI Traffic Surveillance & ANPR Engine',
+            shortTitle: 'VeloCITI',
+            desc: 'High-throughput ANPR and traffic matrix platform built with YOLOv8 and MoRTH Vahan integration. Features a hybrid distributed architecture delegating GPU inference with zero-OOM memory fallbacks.',
+            tech: ['React', 'FastAPI / Flask', 'PyTorch / YOLOv8', 'EasyOCR', 'Cloudflare Tunnels'],
+            imgUrl: '/velociti.jpg',
+            icon: <Cctv size={22} color="#4285f4" />,
+            githubUrl: 'https://github.com/ChinmayaBiswal7/VeloCiTI',
+            liveUrl: 'https://velociti-8pfl.onrender.com/'
+        },
+        {
             title: 'OneBus Tracking System',
+            shortTitle: 'OneBus',
             desc: 'Live tracking of college buses featuring real-time ETA, dedicated admin dashboard, and robust driver panel.',
             tech: ['React', 'Node.js', 'Maps API'],
             imgUrl: '/onebus.png',
@@ -15,6 +26,7 @@ const Projects = () => {
         },
         {
             title: 'Gammers Hub',
+            shortTitle: 'Gammers Hub',
             desc: 'A dedicated gaming platform featuring classic board games and engaging Player-vs-Player matchmaking capabilities.',
             tech: ['JavaScript', 'HTML/CSS', 'Socket.io'],
             imgUrl: '/gammers.png',
@@ -24,6 +36,7 @@ const Projects = () => {
         },
         {
             title: 'Student Buddy App',
+            shortTitle: 'Student Buddy',
             desc: 'An all-in-one productivity suite for students integrating a focus timer, task/work tracker, and fitness goals.',
             tech: ['React Native', 'MongoDB', 'PostgreSQL'],
             imgUrl: '/buddyapp.png',
@@ -34,17 +47,18 @@ const Projects = () => {
     ];
 
     const [active, setActive] = useState(0);
+    const cycleDuration = data.length * 5;
 
     // Flawless mathematically calculated auto-rotation
     useEffect(() => {
         const timer = setInterval(() => {
-            setActive((prev) => (prev + 1) % 3);
-        }, 5000); // 1/3rd of the 15s orbit animation
+            setActive((prev) => (prev + 1) % data.length);
+        }, 5000);
         return () => clearInterval(timer);
-    }, []);
+    }, [data.length]);
 
-    // Starting positions logic so they hit left axis exactly at 0s, 5s, and 10s
-    const angles = [180, 60, 300];
+    // Starting positions logic so they hit left axis exactly in sync with rotation
+    const angles = data.map((_, idx) => (180 - idx * (360 / data.length) + 360) % 360);
     const radius = 140;
     const cx = 140;
     const cy = 140;
@@ -87,7 +101,7 @@ const Projects = () => {
             width: 100%;
             height: 100%;
             border-radius: 50%;
-            animation: orbitSpin 15s linear infinite;
+            animation: orbitSpin ${cycleDuration}s linear infinite;
           }
           .orbit-core {
             width: 80px;
@@ -109,7 +123,8 @@ const Projects = () => {
             gap: 8px;
             margin-left: -50px;
             margin-top: -25px;
-            animation: orbitSpinReverse 15s linear infinite;
+            animation: orbitSpinReverse ${cycleDuration}s linear infinite;
+            cursor: pointer;
           }
           .orbit-planet {
             width: 50px;
@@ -221,11 +236,12 @@ const Projects = () => {
                                             key={idx}
                                             className={`orbit-planet-wrapper ${active === idx ? 'active' : ''}`}
                                             style={{ left: left + 'px', top: top + 'px' }}
+                                            onClick={() => setActive(idx)}
                                         >
                                             <div className="orbit-planet">
                                                 {proj.icon}
                                             </div>
-                                            <div className="orbit-planet-title">{proj.title}</div>
+                                            <div className="orbit-planet-title">{proj.shortTitle || proj.title}</div>
                                         </div>
                                     )
                                 })}

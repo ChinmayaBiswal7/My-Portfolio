@@ -59,6 +59,15 @@ const NavBar = () => {
                         exit={{ x: '100%' }}
                         transition={{ type: 'spring', damping: 25, stiffness: 200 }}
                     >
+                        <div style={{ width: '100%', display: 'flex', justifyContent: 'flex-end', marginBottom: '2rem' }}>
+                            <button
+                                onClick={toggleMenu}
+                                style={{ background: 'var(--card-alt)', border: '1px solid var(--border-color)', color: 'var(--text-color)', padding: '0.5rem', borderRadius: '12px', cursor: 'pointer' }}
+                            >
+                                <X size={24} />
+                            </button>
+                        </div>
+
                         {navItems.map((item) => (
                             <a key={item.name} href={item.href} className="nav-link" style={{ fontSize: '1.5rem' }} onClick={toggleMenu}>{item.name}</a>
                         ))}
